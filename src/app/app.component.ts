@@ -10,19 +10,25 @@ import { WsService } from './ws.service';
 })
 export class AppComponent implements OnInit {
   info = '';
-  socketUrl = 'https://localhost:8000/api/socket';
+  form: FormGroup;
 
   constructor(
     private apiService: ApiService,
-    private wsService: WsService) {
-      //this.wsService.setSocketHost(this.socketUrl);
-    }
+    private ws: WsService
+    ) {
+      this.ws.setSocketHost('http://localhost:8000/');
 
-  form = new FormGroup({
-    message: new FormControl(''),
-  });
+      this.form = new FormGroup({
+        message: new FormControl(''),
+      });
+  }
 
   ngOnInit() {
+    this.ws.socket.on('d8b3ca7a.aa4948', (data) => {
+      console.log('Hola data', data.msg.payload);
+      this.info = data.msg.payload;
+    });
+
     this.apiService.getData().subscribe((data) => {
       console.log('Recibido ', data);
     });

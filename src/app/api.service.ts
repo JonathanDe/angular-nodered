@@ -5,10 +5,10 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
+  endpoint = 'http://localhost:8000/';
 
-  endpoint = 'http://localhost:8000/api';
-
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient) {
+  }
 
   sendData(data: any) {
     return this.httpClient.post(this.endpoint, data);
