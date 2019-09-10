@@ -9,7 +9,9 @@ import { WsService } from './ws.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  info = '';
+  infoHttp = '';
+  infoSocket = '';
+  infoArr = [];
   form: FormGroup;
 
   constructor(
@@ -24,13 +26,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ws.socket.on('d8b3ca7a.aa4948', (data) => {
+    this.ws.socket.on('1dd4992e.2a47e7', (data) => {
       console.log('Hola data', data.msg.payload);
-      this.info = data.msg.payload;
+      this.infoSocket = data.msg.payload;
     });
 
-    this.apiService.getData().subscribe((data) => {
-      console.log('Recibido ', data);
+    this.apiService.getData().subscribe((data: any) => {
+      this.infoHttp = data.data + ' [GET]';
+      console.log('Recibido [GET]', data);
     });
   }
 
@@ -43,7 +46,8 @@ export class AppComponent implements OnInit {
 
     if (inputMessage !== '') {
       this.apiService.sendData(newData).subscribe((data: any) => {
-        this.info = data.message;
+        this.infoArr.push(data);
+        this.form.controls['message'].reset();
         console.log('Mensaje recibido: ', data);
       });
     }

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  endpoint = 'http://localhost:8000/';
+  endpoint = 'http://localhost:8000/api';
 
   constructor(public httpClient: HttpClient) {
   }
