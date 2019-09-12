@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     private apiService: ApiService,
     private ws: WsService
     ) {
-      this.ws.setSocketHost('http://localhost:8000/');
+      this.ws.setSocketHost('http://localhost:9000');
 
       this.form = new FormGroup({
         message: new FormControl(''),
